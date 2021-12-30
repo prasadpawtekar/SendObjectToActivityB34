@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">SendObjectToActivityB34</string>
+    <string name="btn_add_product">Add Product</string>
+    <string name="hint_product_name">Product Name</string>
+    <string name="hint_category">Product Category</string>
+    <string name="hint_price">Product Price</string>
+    <string name="btn_save">Save</string>
+</resources>
