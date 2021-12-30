@@ -9,11 +9,11 @@ class ProductDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product_details)
 
-        val selectProduct: Product = intent.extras?.getSerializable("productInfo") as Product
+        val selectProduct: Product? = intent.extras?.getParcelable("productInfo")
 
-        tvProductName.text = selectProduct.pName
-        tvCategory.text = selectProduct.category
-        tvPrice.text = "Price: \$ ${selectProduct.price}"
-        rbRating.rating = selectProduct.userRating
+        tvProductName.text = selectProduct?.pName
+        tvCategory.text = selectProduct?.category
+        tvPrice.text = "Price: \$ ${selectProduct?.price}"
+        rbRating.rating = selectProduct?.userRating ?: 0f
     }
 }

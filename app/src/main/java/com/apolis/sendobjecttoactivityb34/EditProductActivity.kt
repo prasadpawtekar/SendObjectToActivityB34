@@ -15,13 +15,13 @@ class EditProductActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_product)
 
-        val product = intent.extras?.getSerializable("product") as Product
+        val product: Product? = intent.extras?.getParcelable("product")
         position = intent.extras?.getInt("position")?: -1
 
-        etProductName.setText(product.pName)
-        etCategory.setText(product.category)
-        etPrice.setText("${product.price}")
-        rbRating.rating = product.userRating
+        etProductName.setText(product?.pName)
+        etCategory.setText(product?.category)
+        etPrice.setText("${product?.price}")
+        rbRating.rating = product?.userRating ?: 0f
 
         btnSave.setOnClickListener {
             val pName = etProductName.text.toString()

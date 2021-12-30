@@ -31,6 +31,7 @@ class MainActivity : AppCompatActivity() {
         adapter.setOnEditClickListener { product, position ->
             val editIntent = Intent(baseContext, EditProductActivity::class.java)
 
+
             editIntent.putExtra("product", product)
             editIntent.putExtra("position", position)
 
@@ -42,7 +43,6 @@ class MainActivity : AppCompatActivity() {
             val pIntent = Intent(baseContext, ProductDetailsActivity::class.java)
             pIntent.putExtra("productInfo", product)
             startActivity(pIntent)
-
         }
 
         btnAddProduct.setOnClickListener {
@@ -61,17 +61,21 @@ class MainActivity : AppCompatActivity() {
         if(resultCode == RESULT_OK) {
             when(requestCode) {
                 ADD_PRODUCT_REQUEST -> {
-                    val product = data?.extras?.getSerializable("newProduct") as Product
-                    products.add(product)
-                    adapter.notifyDataSetChanged()
+                    val product = data?.extras?.getParcelable<Product>("newProduct")
+                    product?.let {
+                        products.add(it)
+                        adapter.notifyDataSetChanged()
+                    }
                 }
 
                 EDIT_PRODUCT_REQUEST -> {
-                    val editedProduct = data?.extras?.getSerializable("editedProduct") as Product
+                    val editedProduct: Product? = data?.extras?.getParcelable("editedProduct")
                     val position = data?.extras?.getInt("position")?: -1
                     if(position != -1) {
-                        products[position] = editedProduct
-                        adapter.notifyDataSetChanged()
+                        editedProduct?.let {
+                            products[position] = it
+                            adapter.notifyDataSetChanged()
+                        }
                     }
                 }
             }
